@@ -129,74 +129,7 @@ include 'include/config.php';
         </table>
 
     </div>
-    <div class='panel-body'>
-        <form role='form' class="form-horizontal" id="walletWithdrawlForm" >
-            <div class="form-group" >
-                <label class="col-sm-3 control-label"></label>
-                <div class="col-sm-9" >
-                    <div class="input-group">
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" type="button" disabled><i class="fa fa-map-marker"></i></button>
-                        </div><!-- /btn-group -->
-                        <input data-bind="value: wallet.withdrawalPaymentId, style: { 'font-size': wallet.isCryptoNote() ? '10px' : '13px' }" type='text' class='form-control text-right' id="withdrawalPaymentId">
-                        <span class="input-group-addon" data-bind="text:wallet.addOnWithdrawalAddress"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label" data-bind="text:wallet.labelWithdrawalBaseAddress"></label>
-                <div class="col-sm-9" >
-                    <div class="input-group">
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" type="button" disabled><i class="fa fa-map-pin"></i></button>
-                        </div>
-                        <input data-bind="value: wallet.withdrawalAddress, style: { 'font-size': wallet.isCryptoNote() ? '10px' : '13px' }" type='text' class='form-control text-right' id="withdrawalAddress">
-                        <span class="input-group-addon" data-bind="text:wallet.addOnWithdrawalBaseAddress"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Quantity</label>
-                <div class="col-sm-9" >
-                    <div class="input-group">
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button" data-bind="click: wallet.withdrawMax" data-toggle="tooltip" data-placement="top" title="Withdraw All"><i class="fa fa-angle-double-up"></i></button>
-                        </span>
-                        <input data-bind="value: wallet.withdrawalQuantity" class='form-control text-right' id="withdrawalQuantity">
-                        <span class="input-group-addon" >.00</span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Tx Fee </label>
-                <div class="col-sm-9" >
-                    <div class="input-group">
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" style="padding-left:11px;padding-right:11px" type="button" disabled><i class="fa fa-minus"></i></button>
-                        </div><!-- /btn-group -->
-                        <input data-bind="value: wallet.withdrawalFeeText" class="form-control text-right" type="text" readonly="readonly" placeholder="loading transaction fee...">
-                        <span class="input-group-addon" data-bind="text: wallet.currency">.00</span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Withdrawal</label>
-                <div class="col-sm-9" >
-                    <div class="input-group">
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" style="padding-left:9px;padding-right:9px" type="button" disabled><i class="fa fa-cloud-upload"></i></button>
-                        </div><!-- /btn-group -->
-                        <input  class="form-control text-right" type="text" readonly="readonly">
-                        <span class="input-group-addon" data-bind="text: wallet.currency">.00</span>
-                    </div>
-                </div>
-            </div>
-          
-            <div class="col-sm-12">
-                <button type='submit' class='btn btn-primary center-block'><i class="fa fa-cloud-upload"></i>&nbsp; Withdrawal</button>
-            </div>
-        </form>
-    </div>
+    
 </div>
 
                 
@@ -281,19 +214,9 @@ include 'include/config.php';
 
     </div>
     <div class="panel-body">
-        <form role="form" class="form-horizontal" id="walletWithdrawlForm">
-            <div class="form-group" style="display: none;">
-                <label class="col-sm-3 control-label" >Address</label>
-                <div class="col-sm-9">
-                    <div class="input-group">
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" type="button" ><i class="fa fa-map-marker"></i></button>
-                        </div><!-- /btn-group -->
-                        <input  type="text" class="form-control text-right" id="withdrawalPaymentId" style="font-size: 13px;">
-                        <span class="input-group-addon" >ADDR</span>
-                    </div>
-                </div>
-            </div>
+        <form role="form" class="form-horizontal" method="post">
+        <div id="getwithdraw"></div>
+            
             <div class="form-group">
                 <label class="col-sm-3 control-label" >Address</label>
                 <div class="col-sm-9">
@@ -301,7 +224,7 @@ include 'include/config.php';
                         <div class="input-group-btn">
                             <button class="btn btn-default" type="button" disabled=""><i class="fa fa-map-pin"></i></button>
                         </div><!-- /btn-group -->
-                        <input  type="text" class="form-control text-right" id="withdrawalAddress" style="font-size: 13px;">
+                        <input  type="text" name="address" required="" id="address" class="form-control text-right"  style="font-size: 13px;">
                         <span class="input-group-addon" data-bind="text:wallet.addOnWithdrawalBaseAddress">ADDR</span>
                     </div>
                 </div>
@@ -313,38 +236,28 @@ include 'include/config.php';
                         <span class="input-group-btn">
                             <button class="btn btn-primary" type="button" data-bind="click: wallet.withdrawMax" data-toggle="tooltip" data-placement="top" title="Withdraw All"><i class="fa fa-angle-double-up"></i></button>
                         </span>
-                        <input data-bind="value: wallet.withdrawalQuantity" class="form-control text-right" id="withdrawalQuantity">
-                        <span class="input-group-addon" >BTC</span>
+                        <input  class="form-control text-right" id="amount" name="amount" required="" >
+                        <span class="input-group-addon" id="withdraw_currency1"></span>
+                        <input type="hidden" name="withdraw_currencyname" id="withdraw_currencyname" >
                     </div>
                 </div>
             </div>
+            
             <div class="form-group">
-                <label class="col-sm-3 control-label">Tx Fee <span  style="display: none;">0.10%</span></label>
-                <div class="col-sm-9">
-                    <div class="input-group">
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" style="padding-left:11px;padding-right:11px" type="button" disabled=""><i class="fa fa-minus"></i></button>
-                        </div><!-- /btn-group -->
-                        <input  class="form-control text-right" type="text" readonly="readonly" placeholder="transaction fee">
-                        <span class="input-group-addon" data-bind="text: wallet.currency">BTC</span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Withdrawal</label>
+                <label class="col-sm-3 control-label">Spending Password</label>
                 <div class="col-sm-9">
                     <div class="input-group">
                         <div class="input-group-btn">
                             <button class="btn btn-default" style="padding-left:9px;padding-right:9px" type="button" disabled=""><i class="fa fa-cloud-upload"></i></button>
                         </div>
-                        <input  class="form-control text-right" type="text" >
-                        <span class="input-group-addon" data-bind="text: wallet.currency">BTC</span>
+                        <input  class="form-control text-right" id="spendingpass" name="spendingpass" type="Password" required="" >
+                        <span class="input-group-addon" ><i class="fa fa-cloud-upload"></i></span>
                     </div>
                 </div>
             </div>
            
             <div class="col-sm-12">
-                <button  type="submit" class="btn btn-primary center-block"><i class="fa fa-cloud-upload"></i>&nbsp; Withdrawal</button>
+                <button  type="submit" class="btn btn-primary center-block" onclick="getwithdraw();"><i class="fa fa-cloud-upload"></i>&nbsp; Withdrawal</button>
             </div>
         </form>
     </div>

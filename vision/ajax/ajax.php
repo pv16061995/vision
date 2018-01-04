@@ -2,6 +2,7 @@
 include '../include/config.php';
 include 'controls.php';
 include '../apis/common.php';
+include '../include/GoogleAuthenticator.php';
 
 if($_POST['q']=='accountbalances')
 {
@@ -9,6 +10,9 @@ if($_POST['q']=='accountbalances')
 }else if($_POST['q']=='getqrcode')
 {
   getqrcode();
+}else if($_POST['q']=='getwithdraw')
+{
+  getwithdraw();
 }else if($_POST['q']=='getwithdrawdetail')
 {
   getwithdrawdetail();
@@ -37,6 +41,9 @@ else if($_POST['q']=="basic_verification")
 {  myopenmarket();
 }else if($_POST['q']=="successmarket")
 {  successmarket();
+}
+else if($_POST['q']=="reset_trans")
+{  resettranspass();
 }
 
 
@@ -102,6 +109,29 @@ function getqrcode()
     echo $detail;
 }
 
+function getwithdraw()
+{
+  $email=$_SESSION['useremail'];
+  $cun=$_POST['currency'];
+  $amount = $_POST['amount'];
+  $spendingpass= $_POST['spendingpass'];
+  $address = $_POST['address'];
+
+  
+
+  $obj=NEW Controls();
+  $data=$obj->getwithdraw($cun,$email,$amount,$spendingpass,$address);
+  $responseData=json_decode($data,true);
+  
+
+  $detail= $responseData['message'];
+ 
+
+  echo $detail;
+}
+
+
+
 function getwithdrawdetail()
 {
   $email=$_SESSION['useremail'];
@@ -116,7 +146,7 @@ function getwithdrawdetail()
   $freeze_bal='Freeze Available: '.$responseData['user']['Freezed'.$cun.'balance'].$cun;
 
 
-  echo 'detail^'.$avail_bal.'^'.$freeze_bal.'^detail';
+  echo 'detail^'.$avail_bal.'^'.$freeze_bal.'^'.$cun.'^detail';
 }
 
 
@@ -189,11 +219,14 @@ function getalltransactiondeposit()
 function userSignup()
 {
   //print_r($_POST);
+  $ga = new GoogleAuthenticator();
+  $secret = $ga->createSecret();
+  echo $secret;
   $email=trim($_POST['email']);
   $pass=trim($_POST['pass']);
   $sendingPass=$_POST['sendingpass'];
   $obj=NEW Controls();
-  $data=$obj->userRegister($email,$pass,$sendingPass);
+  $data=$obj->userRegister($email,$pass,$sendingPass,$secret);
   $responseData=json_decode($data,true);
   echo 'test^'.$responseData['statusCode'].'^'.$responseData['message'].'^test';
 }
@@ -239,6 +272,16 @@ function donePasswordReset()
   $confirm_password=trim($_POST['new_pass']);
   $obj=NEW Controls();
   $data=$obj->userPasswordReset($email,$password,$confirm_password);
+  $responseData=json_decode($data,true);
+  echo $responseData['statusCode']."_".$responseData['message'];
+}
+function resettranspass()
+{
+  $email=trim($_POST['emailId']);
+  $password=trim($_POST['pass']);
+  $confirm_password=trim($_POST['new_pass']);
+  $obj=NEW Controls();
+  $data=$obj->usertransPasswordReset($email,$password,$confirm_password);
   $responseData=json_decode($data,true);
   echo $responseData['statusCode']."_".$responseData['message'];
 }
@@ -310,7 +353,7 @@ function myopenmarket()
           $detail .='<td>'.$data['askRate'].'</td>';
           $detail .='<td>'.$data['totalaskAmount'.$currency1].'</td>';
           $detail .='<td>'.$data['totalaskAmount'.$currency2].'</td>';
-          $detail .='<td><a href="javascript:;" onclick="del(id=\''.$data['id'].'\',ownwe=\''.$data['askowner'.$currency1].'\');"><i class="fa fa-trash"></i></a></td>';
+          $detail .='<td><a href="javascript:;" onclick="del_ask(id=\''.$data['id'].'\',ownwe=\''.$data['askowner'.$currency1].'\');"><i class="fa fa-trash"></i></a></td>';
           $detail .='</tr>';
         }
 

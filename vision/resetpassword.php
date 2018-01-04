@@ -37,8 +37,8 @@ include 'include/config.php';?>
 
 
 <div class="login-wrapper">
-    <a href="/">
-        <img class="logo" src="images/logo/logo.png" alt="" />
+    <a href="index.php">
+        <img class="logo" src="images/logo.png" alt="" />
     </a>
     <div class="box">
         <div class="content-wrap">

@@ -110,10 +110,10 @@ include 'include/config.php';?>
                     <a href="basicverification.php" class="list-group-item" id="basicVerificationBtn">
                         Basic Verification
                     </a>
-                    <a href="changepassword.php" class="list-group-item active" >
+                    <a href="changepassword.php" class="list-group-item " >
                         Change Password
                     </a>
-                    <a href="changetransactionpassword.php" class="list-group-item " >
+                    <a href="changetransactionpassword.php" class="list-group-item active" >
                         Change Transaction Password
                     </a>
                     <a href="two_factor.php" class="list-group-item" >
@@ -127,19 +127,19 @@ include 'include/config.php';?>
                       <div class="login-wrapper">
                           <div class="box">
                               <div class="content-wrap">
-                                <form action="#" class="form-horizontal" id="changePassReset" method="post" role="form">
-                                  <h6>Reset Password</h6>
+                                <form action="#" class="form-horizontal" id="changetransPassReset" method="post" role="form">
+                                  <h6>Reset Transaction Password</h6>
                                   <input class="form-control" id="EmailAddress" name="EmailAddress" placeholder="Email Address" type="text" />
                                   <span class="field-validation-valid"></span>
 
-                                  <input  class="form-control" id="Password" name="Password" placeholder="New Password" type="password" />
+                                  <input  class="form-control" id="sendingPassword" name="sendingPassword" placeholder="New Transaction Password" type="password" />
                                   <span class="field-validation-valid" for="Password"></span>
 
-                                  <input  class="form-control" id="Confirm_Password" name="Confirm_Password" placeholder="Confirm New Password" type="password" />
+                                  <input  class="form-control" id="sending_Confirm_Password" name="sending_Confirm_Password" placeholder="Confirm New Transaction Password" type="password" />
                                   <span class="field-validation-valid" for="Password"></span><br/>
 
                                   <button type="submit" class="btn btn-primary otpForm">
-                                          <i class="fa fa-unlock"></i>&nbsp;Change Password
+                                          <i class="fa fa-unlock"></i>&nbsp;Change Transaction Password
                                   </button>
                                 </form>
                               </div>

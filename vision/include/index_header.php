@@ -1,4 +1,7 @@
-<?php include 'config.php';?>
+<?php 
+include 'config.php';
+include 'apis/common.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />

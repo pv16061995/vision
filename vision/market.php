@@ -142,7 +142,7 @@ if(isset($_GET['curr']))
 
                         </div>
                         <input type="text" class="form-control text-right" id="bid_rate"  onkeypress="return isNumberKey(event)" onkeyup="bidAmount()" value="0" />
-                        <span class="input-group-addon" >BTC</span>
+                        <span class="input-group-addon" ><?echo $currency2;?></span>
                     </div>
                 </div>
 
@@ -156,7 +156,7 @@ if(isset($_GET['curr']))
                             <button class="btn btn-default" style="width:100px;" type="button" disabled><i class="fa fa-btc"></i></button>
                         </div>
                         <input type="text" class="form-control text-right" id="bid_amount"  onkeypress="return isNumberKey(event)" onkeydown="return check_number(event);" onkeyup="bidAmountTotal()" value="0" >
-                        <span class="input-group-addon" >BTC</span>
+                        <span class="input-group-addon" ><?echo $currency2;?></span>
                     </div>
                 </div>
             </div>
@@ -209,7 +209,7 @@ if(isset($_GET['curr']))
 
                         </div>
                         <input type="text" class="form-control text-right"  onkeyup="askAmount()" onkeypress="return isNumberKey(event)" id="ask_rate" value="0" />
-                        <span class="input-group-addon" >BTC</span>
+                        <span class="input-group-addon" ><?echo $currency2;?></span>
                     </div>
                 </div>
 
@@ -224,7 +224,7 @@ if(isset($_GET['curr']))
                             <button class="btn btn-default" style="width:100px;" type="button" disabled><i class="fa fa-btc"></i></button>
                         </div>
                         <input class="form-control text-right" d type="text" onkeyup="askAmountTotal()" onkeypress="return isNumberKey(event)"  value="0" id="ask_amount">
-                        <span class="input-group-addon" >BTC</span>
+                        <span class="input-group-addon" ><?echo $currency2;?></span>
                     </div>
                 </div>
             </div>
@@ -258,7 +258,7 @@ if(isset($_GET['curr']))
             <td  width="20%">Bid</td>
             <td width="20%">Amount</td>
             <td width="40%">Price</td>
-            <td  width="40%">Total(BTC)</td>
+            <td  width="40%">Total(<?echo $currency2;?>)</td>
             </tr>
             </thead>
             <tbody  id="bid-list"></tbody>
@@ -268,12 +268,12 @@ if(isset($_GET['curr']))
             <div class="col-xs-12 col-sm-6">
                 <h2 class="subsection-header-in-row">Asks</h2>
                 <table id="sellOrdersTable" class="table table-striped table-hover table-condensed table-bordered right-table">
-                 <thead class="thead">
+                 <thead class="thead-blu">
                  <tr>
                  <td  width="20%">Ask</td>
                  <td width="20%">Amount</td>
                  <td width="40%">Price</td>
-                 <td  width="40%">Total(BTC)</td>
+                 <td  width="40%">Total(<?echo $currency2;?>)</td>
                  </tr>
                  </thead>
                  <tbody id="ask-list"></tbody>
@@ -326,6 +326,8 @@ if(isset($_GET['curr']))
 </div>
 
     <div id="successmarketdetail1"></div>
+
+    </div>
             </div>
         </div>
 

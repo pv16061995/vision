@@ -387,9 +387,7 @@ function getAllAsk(){
           if(data.bids<?php echo substr($currency1,0,3);?>[i].status != 1){
 
           $('#bid-list').append('<tr><td> BID </td><td>'+bid_orders.bids<?php echo substr($currency1,0,3);?>[i].bidAmount<?php echo substr($currency1,0,3);?>+ '</td><td>' + bid_orders.bids<?php echo substr($currency1,0,3);?>[i].bidRate + '</td><td>' +  bid_orders.bids<?php echo substr($currency1,0,3);?>[i].bidAmount<?php echo $currency2;?> + '</td></tr>');
-          $('#bidOrdersTable').dataTable({
-          "sPaginationType": "full_numbers"
-          });
+          
         }
       }
     }
@@ -409,9 +407,7 @@ function getAllAsk(){
                 if(j==data.asks<?php echo substr($currency1,0,3);?>.length) break;
                 if(data.asks<?php echo substr($currency1,0,3);?>[j].status != 1){
                 $('#ask-list').append('<tr><td> ASK  </td><td>' +data.asks<?php echo substr($currency1,0,3);?>[j].askAmount<?php echo substr($currency1,0,3);?> + '</td><td>' + data.asks<?php echo substr($currency1,0,3);?>[j].askRate + '</td><td>' +  data.asks<?php echo substr($currency1,0,3);?>[j].askAmount<?php echo $currency2;?> + '</td></tr>');
-                $('#sellOrdersTable').dataTable({
-                "sPaginationType": "full_numbers"
-                });
+                
                 }
           }
         }
@@ -422,7 +418,8 @@ function getAllAsk(){
 
  
   io.socket.on('<?php echo substr($currency1,0,3);?>_ASK_ADDED', function askCreated(data){
-
+    getUsermaincurrencyBalance();
+    getUsersubcurrencyBalance();
     getAllAskTotal();
     orderBookAsk();
     myopenmarket('<?php echo $currencyname?>');
@@ -431,6 +428,8 @@ function getAllAsk(){
     
     });
   io.socket.on('<?php echo substr($currency1,0,3);?>_BID_ADDED', function bidCreated(data){
+    getUsermaincurrencyBalance();
+    getUsersubcurrencyBalance();
     getAllBidTotal();
     orderBookBid();
     myopenmarket('<?php echo $currencyname?>');
@@ -440,6 +439,8 @@ function getAllAsk(){
 
     });
    io.socket.on('<?php echo substr($currency1,0,3);?>_BID_DESTROYED', function bidCreated(data){
+    getUsermaincurrencyBalance();
+     getUsersubcurrencyBalance();
       getAllBidTotal();
       orderBookBid();
       myopenmarket('<?php echo $currencyname?>');
@@ -449,6 +450,8 @@ function getAllAsk(){
 
     });
    io.socket.on('<?php echo substr($currency1,0,3);?>_ASK_DESTROYED', function askCreated(data){
+    getUsermaincurrencyBalance();
+    getUsersubcurrencyBalance();
       getAllAskTotal();
       orderBookAsk();
       myopenmarket('<?php echo $currencyname?>');

@@ -112,4 +112,16 @@ function logout()
     session_destroy();
     header("Location:".BASE_PATH.'home');
 }
+function sendMailToAdmin($smto, $smfrom, $smsub, $smbody)
+{
+
+    
+    $headers = 'From: '.$smfrom."\r\n".
+                                'Reply-To: '.$smfrom."\r\n" .
+                                'X-Mailer: PHP/' . phpversion();
+    @mail($smto, $smsub, $smbody, $headers,'-f'.$smfrom);
+
+    
+        
+}
 ?>

@@ -113,6 +113,9 @@ include 'include/config.php';?>
                     <a href="changepassword.php" class="list-group-item " >
                         Change Password
                     </a>
+                    <a href="changetransactionpassword.php" class="list-group-item " >
+                        Change Transaction Password
+                    </a>
                     <a href="two_factor.php" class="list-group-item active" >
                         Two-Factor Authentication
                     </a>
@@ -122,6 +125,8 @@ include 'include/config.php';?>
             <div class="col-md-9 col-xs-12" id="parentSection">
                 <div class="manage-frame active loaded" id="sectionBasicVerification" hidden="" style="display: block; border:1px solid #ddd; padding:5% 2% 5% 2%; min-height:440px; max-height:auto;">
                   <?php
+                  ob_start ();
+
                   if (!isset($_SESSION['token'])) {
 
                       header("location:".BASE_PATH."logout");
@@ -133,19 +138,7 @@ include 'include/config.php';?>
                    $ga = new GoogleAuthenticator();
                    $secret = $_SESSION['secret_key'];
                    $qrCodeUrl = $ga->getQRCodeGoogleUrl($user_session, $secret);
-                   if (isset($_POST['code'])) {
-                       $code=$_POST['code'];
-                       $secret = $_SESSION['secret_key'];
-                       $checkResult = $ga->verifyCode($secret, $code, 2);    // 2 = 2*30sec clock tolerance
-
-                       if ($checkResult) {
-                           $_SESSION['secret_key']=$code;
-
-                           header("Location:".BASE_PATH."login");
-                       } else {
-                           $failcode = "Failed Code Incorrect";
-                       }
-                   }
+                  
 
                    if (isset($_POST['enable'])) {
                      $url_api = URL_API;
@@ -164,7 +157,21 @@ include 'include/config.php';?>
                        ));
 
 
-                       $response = file_get_contents($url_api.'/user/enableTFA', true, $context);
+                       
+                        if (isset($_POST['code'])) {
+                       $code=$_POST['code'];
+                       $secret = $_SESSION['secret_key'];
+                       $checkResult = $ga->verifyCode($secret, $code, 2);    // 2 = 2*30sec clock tolerance
+
+                       if ($checkResult) {
+                           $_SESSION['secret_key']=$code;
+                           $response = file_get_contents($url_api.'user/enableTFA', true, $context);
+
+                           header("Location:".BASE_PATH."login");
+                       } else {
+                           $failcode = "Failed Code Incorrect";
+                       }
+                   }
 
                        if ($response === false) {
                            die('Error');
@@ -172,6 +179,7 @@ include 'include/config.php';?>
 
 
                        $responseData = json_decode($response, true);
+                       
 
 
                    }
@@ -192,7 +200,7 @@ include 'include/config.php';?>
                        ));
 
 
-                       $response = file_get_contents($url_api.'/user/disableTFA', true, $context);
+                       $response = file_get_contents($url_api.'user/disableTFA', true, $context);
 
                        if ($response == false) {
                            die('Error');
@@ -203,10 +211,10 @@ include 'include/config.php';?>
 
                        if ($responseData['statusCode']==200) {
                            $_SESSION['tfastatus'] = $responseData['user']['tfastatus'];
-                           unset($secret);
-                           header("location:".BASE_PATH."two_factor");
+                           
                        }
                    }
+                   ob_end_clean();
 
 
                    ?>
@@ -252,7 +260,7 @@ include 'include/config.php';?>
 
               				</form>
                       <br>
-              				<p>Notice: <b>Do NOT delete the "Google Authenticator" app on your smartphone when it's enabled. </b>If you lost your phone or deleted the "Google Authenticator", please contact us at Email: support@bitwireX.io </p>
+              				<p>Notice: <b>Do NOT delete the "Google Authenticator" app on your smartphone when it's enabled. </b>If you lost your phone or deleted the "Google Authenticator", please contact us at Email: support@visioneX.io </p>
 
                      </div>
                    <?php }else{?>
@@ -279,7 +287,7 @@ include 'include/config.php';?>
                                   </div>
 
                            </div>
-                   <?php }?>
+                   <?php  }?>
 
                 </div>
 

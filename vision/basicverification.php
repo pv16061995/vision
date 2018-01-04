@@ -112,6 +112,9 @@ include 'include/config.php';?>
                     <a href="changepassword.php" class="list-group-item" >
                         Change Password
                     </a>
+                    <a href="changetransactionpassword.php" class="list-group-item " >
+                        Change Transaction Password
+                    </a>
                     <a href="two_factor.php" class="list-group-item" >
                         Two-Factor Authentication
                     </a>

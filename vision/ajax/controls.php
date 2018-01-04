@@ -115,6 +115,109 @@ class Controls
 		return $bcc_address;
 	}
 
+
+	public function getwithdraw($curr,$email,$amount,$spendingPassword,$address)
+	{
+		$url_api = URL_API;
+		if(isset($curr))
+		{
+			  $currencyname=$curr;
+			  switch ($currencyname) {
+			  	case 'BTC':
+
+              $postData = array(
+                                  "userMailId"=> $email,
+                                  "amount"=> $amount,
+                                  "spendingPassword"=>$spendingPassword,
+                                  "recieverBTCCoinAddress"=> $address
+
+                              );
+
+                      // Create the context for the request
+                      $context = stream_context_create(array(
+                                'http' => array(
+                                'method' => 'POST',
+                                'header' => "Content-Type: application/json\r\n",
+                                'content' => json_encode($postData)
+                                )
+                      ));
+                      $response = file_get_contents($url_api.'sendamount/sendBTC', false, $context);
+                       
+
+                          break;
+                  case 'BCH':
+
+              $postData = array(
+                                  "userMailId"=> $email,
+                                  "amount"=> $amount,
+                                  "spendingPassword"=>$spendingPassword,
+                                  "recieverBCHCoinAddress"=> $address
+
+                              );
+
+                      // Create the context for the request
+                      $context = stream_context_create(array(
+                                'http' => array(
+                                'method' => 'POST',
+                                'header' => "Content-Type: application/json\r\n",
+                                'content' => json_encode($postData)
+                                )
+                      ));
+                      $response = file_get_contents($url_api.'sendamount/sendBCH', false, $context);
+                      
+
+                          break;
+                   case 'LTC':
+
+              $postData = array(
+                                  "userMailId"=> $email,
+                                  "amount"=> $amount,
+                                  "spendingPassword"=>$spendingPassword,
+                                  "recieverLTCCoinAddress"=> $address
+
+                              );
+
+                      // Create the context for the request
+                      $context = stream_context_create(array(
+                                'http' => array(
+                                'method' => 'POST',
+                                'header' => "Content-Type: application/json\r\n",
+                                'content' => json_encode($postData)
+                                )
+                      ));
+                      $response = file_get_contents($url_api.'sendamount/sendLTC', false, $context);
+                      
+
+                          break;
+                   case 'VCN':
+
+              $postData = array(
+                                  "userMailId"=> $email,
+                                  "amount"=> $amount,
+                                  "spendingPassword"=>$spendingPassword,
+                                  "recieverVCNCoinAddress"=> $address
+
+                              );
+
+                      // Create the context for the request
+                      $context = stream_context_create(array(
+                                'http' => array(
+                                'method' => 'POST',
+                                'header' => "Content-Type: application/json\r\n",
+                                'content' => json_encode($postData)
+                                )
+                      ));
+                      $response = file_get_contents($url_api.'sendamount/sendVCN', false, $context);
+                      
+                          break;
+                      }
+                  }
+                  return $response;
+
+	      }
+
+
+
 	public function getalltransaction($email,$curr)
 	{
 			 $postData = array("userMailId"=>  $email);
@@ -134,7 +237,7 @@ class Controls
 			return $response;
 	}
 
-	public function userRegister($email,$password,$sendingPass)
+	public function userRegister($email,$password,$sendingPass,$secret)
 	{
 		$url_api=URL_API;
 		$postData = array(
@@ -143,7 +246,7 @@ class Controls
 			"confirmPassword"=>$password,
 			"spendingpassword"=>$sendingPass,
 			"confirmspendingpassword"=>$sendingPass,
-			"googlesecreatekey"=>$email
+			"googlesecreatekey"=>$secret
 			);
 			$context = stream_context_create(array(
 				'http' => array(
@@ -225,6 +328,24 @@ class Controls
 					)
 				));
 			$response = file_get_contents($url_api.'user/updateForgotPassordAfterVerify', false, $context);
+			return $response;
+	}
+	public function usertransPasswordReset($email,$password,$confirm_password)
+	{
+		$url_api=URL_API;
+		$postData = array(
+			"userMailId"=> $email,
+			"currentSpendingPassword"=>$password,
+			"newSpendingPassword"=>$confirm_password
+			);
+			$context = stream_context_create(array(
+				'http' => array(
+					'method' => 'POST',
+					'header' => "Content-Type: application/json\r\n",
+					'content' => json_encode($postData)
+					)
+				));
+			$response = file_get_contents($url_api.'user/updateCurrentSpendingPassword', false, $context);
 			return $response;
 	}
 	public function userBasicVerification($data)

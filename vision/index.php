@@ -1,5 +1,47 @@
 <?php 
 include 'include/index_header.php';
+
+
+$errorcontact = array();
+$transactionList = array();
+
+$user_current_balance = 0;
+$text_subject = "";
+$trans_desc ="";
+
+$client = "";
+
+
+if (isset($_POST['btncontact'])) {
+    $text_subject = $_POST['text_subject'];
+    $user_email = $_POST['user_email'];
+    $trans_desc = $_POST['discription'];
+
+
+    if (empty($user_email)) {
+        $errorcontact['user_emailError'] = "Please Provide valid Email";
+    }
+
+    if (empty($text_subject)) {
+        $errorcontact['text_subjectError'] = "Please Provide valid Subject";
+    }
+
+
+
+    if (empty($trans_desc)) {
+        $errorcontact['discriptionError'] = "Please Provide valid Message";
+    }
+
+    if (empty($errorcontact)) {
+        sendMailToAdmin(ADMIN_EMAIL, $user_email, $text_subject, $trans_desc);
+
+        $errorcontact2['user_emailError'] = "Thank you for contacting us. Your request has been submitted to concern person";
+        $user_email= @$user_session;
+        $text_subject = "";
+        $trans_desc ="";
+    }
+}
+
 ?>
 <section class="rev_slider_wrapper">
 			<div id="slider1" class="rev_slider"  data-version="5.0">
@@ -61,9 +103,9 @@ include 'include/index_header.php';
 							data-responsive_offset="on"
 							data-start="2300">
 							<div class="slide-content-box">
-								<div class="button">
+								<!-- <div class="button">
 									<a class="thm-btn yellow-bg" href="contact.php">contact us</a>     
-								</div>
+								</div> -->
 							</div>
 						</div>
 						
@@ -124,9 +166,9 @@ include 'include/index_header.php';
 							data-responsive_offset="on"
 							data-start="2300">
 							<div class="slide-content-box">
-								<div class="button">
+								<!-- <div class="button">
 									<a class="thm-btn yellow-bg"  href="contact.php">contact us</a>     
-								</div>
+								</div> -->
 							</div>
 						</div>
 						
@@ -464,23 +506,31 @@ include 'include/index_header.php';
                           <form method='post'><input type='hidden' name='form-name' value='form 1' />
                           
                               <div class="row clearfix">
-                                  <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                      <div class="field-inner"><input type="text" name="field-name" value="" placeholder="Name" required=""></div>
+                                  
+                                  <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                      <div class="field-inner"><input type="email" name="user_email" value="" placeholder="Email" required=""></div>
+													<?php if (isset($errorcontact['user_emailError'])) {
+													echo "<br/><span class=\"messageClass\">".$errorcontact['user_emailError']."</span>";
+													}?>
                                   </div>
-                                  <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                      <div class="field-inner"><input type="email" name="field-name" value="" placeholder="Email" required=""></div>
-                                  </div>
-                                  <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                      <div class="field-inner"><input type="text" name="field-name" value="" placeholder="Phone"></div>
-                                  </div>
-                                  <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                      <div class="field-inner"><input type="text" name="field-name" value="" placeholder="subject"></div>
+                                  
+                                  <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                      <div class="field-inner"><input type="text" name="text_subject" value="" placeholder="subject"></div>
+													<?php if (isset($errorcontact['text_subjectError'])) {
+													echo "<br/><span class=\"messageClass\">".$errorcontact['text_subjectError']."</span>";
+													}?>
                                   </div>
                                   <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                      <div class="field-inner"><textarea name="field-name" placeholder="Message"></textarea></div>
+                                      <div class="field-inner"><textarea name="discription" placeholder="Message"></textarea></div>
+													<?php if (isset($errorcontact['discriptionError'])) {
+													echo "<br/><span class=\"messageClass\">".$errorcontact['discriptionError']."</span>";
+													}?>
+													<?php if (isset($errorcontact2['user_emailError'])) {
+													echo "<br/><span style=\"color:green\" class=\"messageClass\">".$errorcontact2['user_emailError']."</span>";
+													}?>
                                   </div>
                                   <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                      <div class="field-inner theme-btn"><button type="submit" class="thm-btn">Submit Now</button></div>
+                                      <div class="field-inner theme-btn"><button type="submit" name="btncontact" class="thm-btn">Submit Now</button></div>
                                   </div>
                               </div>
                               

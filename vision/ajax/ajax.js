@@ -28,6 +28,29 @@ function getqrcode(currency)
 		);
 }
 
+function getwithdraw()
+{
+	var currency=$('#withdraw_currencyname').val();
+	var address=$('#address').val();
+	var amount=$('#amount').val();
+	var spendingpass=$('#spendingpass').val();
+	
+	 $.post("ajax/ajax.php",{
+	 		currency:currency,
+	 		address:address,
+	 		amount:amount,
+	 		spendingpass:spendingpass,
+			q:"getwithdraw"
+			},
+			function(data){
+				alert(data);
+			$('#getwithdraw').html(data);
+			
+			
+			}
+		);
+}
+
 function getwithdrawdetail(currency)
 {
 	 $.post("ajax/ajax.php",{
@@ -38,7 +61,9 @@ function getwithdrawdetail(currency)
 	dat=data.split('^');
 	$('#current_bal').html(dat[1]);
 	$('#freeze_bal').html(dat[2]);
-
+	$('#withdraw_currency1').html(dat[3]);
+	$('#withdraw_currency2').html(dat[3]);
+	$('#withdraw_currencyname').val(dat[3]);
 	}
 );
 }

@@ -182,7 +182,7 @@ $(document).ready(function(){
           }
           else if(dat[1]==201)
           {
-          window.location.href="two_factor.php";
+          window.location.href="device_confirmations.php";
           }
           else if(dat[1]==401){
             swal("Warning", dat[2], "warning");
@@ -379,7 +379,59 @@ $(document).ready(function(){
       );
     }
   });
-
+/*CHANGE Transaction PASSWORD AFTER LOGIN*/
+  $("#changetransPassReset").validate({
+    rules:{
+      EmailAddress:{
+        required:true,
+        email:true
+      },
+      sendingPassword:{
+        required:true,
+        minlength:5
+      },
+      sending_Confirm_Password:{
+        required:true,
+        minlength:5,
+        passwordMatch:true
+      }
+    },
+    messages:{
+      EmailAddress:{
+        required:"EmailAddress is required",
+        email:"EmailAddress is invalid"
+      },
+      sendingPassword:{
+        required:"Transaction Password is required.",
+        minlength:"The Transaction Password will 5 character in length"
+      },
+      sending_Confirm_Password:{
+        required:"Confirm Transaction Password is required.",
+        minlength:"The Confirm Transaction Password will 5 character in length"
+      }
+    },
+    submitHandler: function(form) {
+      var email=$("#EmailAddress").val();
+      var password=$("#sendingPassword").val();
+      var confirm_password=$("#sending_Confirm_Password").val();
+      $.post("ajax/ajax.php",{
+        q:"reset_trans",
+        emailId:email,
+        pass:password,
+        new_pass:confirm_password
+        },
+        function(data){
+          //alert(data);
+          var str=data.split("_");
+          swal("Success", str[1], "success");
+          // if(str[0]==200)
+          // {
+          //   setTimeout(function(){window.location.reload();},2000);
+          // }
+        }
+      );
+    }
+  });
 $("#formManageBasic").validate({
   rules:{
     fname:{
