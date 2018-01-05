@@ -1,6 +1,6 @@
 function accountbalance()
 {
-	
+
 	  $.post("ajax/ajax.php",{
 			q:"accountbalances"
 			},
@@ -9,10 +9,10 @@ function accountbalance()
 			$('#balanceTable').dataTable({
 	        "sPaginationType": "full_numbers"
 	        });
-			
+
 			}
-		); 
-	
+		);
+
 }
 function getqrcode(currency)
 {
@@ -22,8 +22,8 @@ function getqrcode(currency)
 			},
 			function(data){
 			$('#getqrcode').html(data);
-			
-			
+
+
 			}
 		);
 }
@@ -34,7 +34,7 @@ function getwithdraw()
 	var address=$('#address').val();
 	var amount=$('#amount').val();
 	var spendingpass=$('#spendingpass').val();
-	
+
 	 $.post("ajax/ajax.php",{
 	 		currency:currency,
 	 		address:address,
@@ -43,16 +43,7 @@ function getwithdraw()
 			q:"getwithdraw"
 			},
 			function(data){
-				var str=data.split("^");
-				if(str[0]==200){
-					toastr["success"](str[1],"success");
-
-				}
-				else if(str[0]!=200)
-				{
-					toastr["error"](str[1],"error");
-
-				}
+				alert(data);
 			}
 		);
 }
@@ -77,7 +68,7 @@ function getwithdrawdetail(currency)
 function getalltransactionwithdraw()
 {
 	$.post("ajax/ajax.php",{
-		
+
 	q:"getalltransactionwithdraw"
 	},
 	function(data){
@@ -92,7 +83,7 @@ function getalltransactionwithdraw()
 function getalltransactiondeposit()
 {
 	$.post("ajax/ajax.php",{
-		
+
 	q:"getalltransactiondeposit"
 	},
 	function(data){
@@ -109,16 +100,16 @@ function myopenmarket(subcat)
 {
 
 	$.post("ajax/ajax.php",{
-		
+
 	q:"myopenmarket",
 	subcat:subcat
 	},
 	function(data){
-		
+
 		$('#openmarketdetail').html(data);
 		$('#myorderdetail').dataTable({
            "sPaginationType": "full_numbers"
-           }); 
+           });
 	}
 	);
 }
@@ -126,18 +117,16 @@ function successmarket(subcat)
 {
 
 	$.post("ajax/ajax.php",{
-		
+
 	q:"successmarket",
 	subcat:subcat
 	},
 	function(data){
-		
+
 		$('#successmarketdetail1').html(data);
 		$('#successorderdetail1').dataTable({
            "sPaginationType": "full_numbers"
-           }); 
+           });
 	}
 	);
 }
-
- 
