@@ -1,4 +1,4 @@
-<?php 
+<?php
 include '../include/config.php';
 include 'controls.php';
 include '../apis/common.php';
@@ -34,6 +34,9 @@ else if($_POST['q']=="userotp")
 }
 else if($_POST['q']=="final_reset")
 {  donePasswordReset();
+}
+else if($_POST['q']=="final_changepass")
+{  donePasswordChange();
 }
 else if($_POST['q']=="basic_verification")
 {  userbasicverification();
@@ -117,15 +120,15 @@ function getwithdraw()
   $spendingpass= $_POST['spendingpass'];
   $address = $_POST['address'];
 
-  
+
 
   $obj=NEW Controls();
   $data=$obj->getwithdraw($cun,$email,$amount,$spendingpass,$address);
   $responseData=json_decode($data,true);
-  
+
 
   $detail= $responseData['message'];
- 
+
 
   echo $detail;
 }
@@ -136,11 +139,11 @@ function getwithdrawdetail()
 {
   $email=$_SESSION['useremail'];
   $cun=$_POST['currency'];
-  
+
   $obj=NEW Controls();
   $data=$obj->userdetail($email);
   $responseData=json_decode($data,true);
-  
+
 
   $avail_bal='Currently Available: '.$responseData['user'][$cun.'balance'].$cun;
   $freeze_bal='Freeze Available: '.$responseData['user']['Freezed'.$cun.'balance'].$cun;
@@ -173,7 +176,7 @@ function getalltransactionwithdraw()
             $detail .='<td>'.date('d-M-Y h:i:s',strtotime($value['createdAt'])).'</td>';
             $detail .='<td>'.$value['currencyName'].'</td>';
             $detail .='<td>'.$value['amount'].'</td>';
-           
+
             $detail .='</tr>';
           } }
   $detail .= '</tbody></table>';
@@ -185,7 +188,7 @@ function getalltransactionwithdraw()
 function getalltransactiondeposit()
 {
   $email=$_SESSION['useremail'];
-  
+
 
   $obj=NEW Controls();
 
@@ -275,13 +278,25 @@ function donePasswordReset()
   $responseData=json_decode($data,true);
   echo $responseData['statusCode']."_".$responseData['message'];
 }
-function resettranspass()
+function donePasswordChange()
 {
   $email=trim($_POST['emailId']);
+  $current_password=trim($_POST['cpass']);
   $password=trim($_POST['pass']);
   $confirm_password=trim($_POST['new_pass']);
   $obj=NEW Controls();
-  $data=$obj->usertransPasswordReset($email,$password,$confirm_password);
+  $data=$obj->donePasswordChangeFinal($email,$current_password,$password,$confirm_password);
+  $responseData=json_decode($data,true);
+  echo $responseData['statusCode']."_".$responseData['message'];
+}
+function resettranspass()
+{
+  $email=trim($_POST['emailId']);
+  $current_password=trim($_POST['cpass']);
+  $password=trim($_POST['pass']);
+  $confirm_password=trim($_POST['new_pass']);
+  $obj=NEW Controls();
+  $data=$obj->usertransPasswordReset($email,$current_password,$password,$confirm_password);
   $responseData=json_decode($data,true);
   echo $responseData['statusCode']."_".$responseData['message'];
 }
@@ -322,7 +337,7 @@ function myopenmarket()
     $obj=NEW controls();
     $response=$obj->userdetail($email);
     $responseData = json_decode($response, true);
-    
+
 
     $bid=$responseData['user']['bids'.$currency1];
     $ask=$responseData['user']['asks'.$currency1];
@@ -331,7 +346,7 @@ function myopenmarket()
 
     foreach($repon as $data)
     {
-      
+
       if($data['status']=='2')
       {
         if(isset($data['bidAmount'.$currency1]))
@@ -405,10 +420,10 @@ function successmarket()
 
     foreach($repon as $data)
     {
-      
+
       if($data['status']=='1')
       {
-        
+
         if(isset($data['bidAmount'.$currency1]))
         {
           $detail .='<tr>';
@@ -434,6 +449,6 @@ function successmarket()
    }
    }
    echo $detail;
-  
+
 }
 ?>

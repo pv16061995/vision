@@ -122,15 +122,18 @@ include 'include/config.php';?>
                 </div>
             </div>
             <div class="col-md-9 col-xs-12" id="parentSection">
-                <div class="manage-frame active loaded" id="sectionBasicVerification" hidden="" style="display: block; border:1px solid #ddd; padding:5% 2% 5% 2%; min-height:440px; max-height:auto;">
+                <div class="manage-frame active loaded" id="sectionBasicVerification" hidden="" style="display: block; border:1px solid #ddd; padding:5% 2% 5% 2%; min-height:500px; max-height:auto;">
                     <div class="div-info box">
                       <div class="login-wrapper">
                           <div class="box">
                               <div class="content-wrap">
                                 <form action="#" class="form-horizontal" id="changePassReset" method="post" role="form">
-                                  <h6>Reset Password</h6>
+                                  <h6>Change Password</h6>
                                   <input class="form-control" id="EmailAddress" name="EmailAddress" placeholder="Email Address" type="text" />
                                   <span class="field-validation-valid"></span>
+
+                                  <input  class="form-control" id="Current_Password" name="Current_Password" placeholder="Current Password" type="password" />
+                                  <span class="field-validation-valid" for="Current_Password"></span>
 
                                   <input  class="form-control" id="Password" name="Password" placeholder="New Password" type="password" />
                                   <span class="field-validation-valid" for="Password"></span>

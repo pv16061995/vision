@@ -1,4 +1,4 @@
-<?php 
+<?php
 class Controls
 {
 	public function userdetail($email)
@@ -8,7 +8,7 @@ class Controls
           "userMailId"=> $email
 
           );
-         
+
           $context = stream_context_create(array(
             'http' => array(
               'method' => 'POST',
@@ -108,7 +108,7 @@ class Controls
 
 			                }
 			        break;
-			        
+
 			    }
 			}
 
@@ -142,7 +142,7 @@ class Controls
                                 )
                       ));
                       $response = file_get_contents($url_api.'sendamount/sendBTC', false, $context);
-                       
+
 
                           break;
                   case 'BCH':
@@ -164,7 +164,7 @@ class Controls
                                 )
                       ));
                       $response = file_get_contents($url_api.'sendamount/sendBCH', false, $context);
-                      
+
 
                           break;
                    case 'LTC':
@@ -186,7 +186,7 @@ class Controls
                                 )
                       ));
                       $response = file_get_contents($url_api.'sendamount/sendLTC', false, $context);
-                      
+
 
                           break;
                    case 'VCN':
@@ -208,7 +208,7 @@ class Controls
                                 )
                       ));
                       $response = file_get_contents($url_api.'sendamount/sendVCN', false, $context);
-                      
+
                           break;
                       }
                   }
@@ -232,7 +232,7 @@ class Controls
 			  $url_api=URL_API;
 
 			  $response = file_get_contents($url_api.'/tx/getTxsList'.$curr, false, $context);
-			
+
 
 			return $response;
 	}
@@ -330,13 +330,34 @@ class Controls
 			$response = file_get_contents($url_api.'user/updateForgotPassordAfterVerify', false, $context);
 			return $response;
 	}
-	public function usertransPasswordReset($email,$password,$confirm_password)
+	public function donePasswordChangeFinal($email,$current_password,$password,$confirm_password)
 	{
 		$url_api=URL_API;
 		$postData = array(
 			"userMailId"=> $email,
-			"currentSpendingPassword"=>$password,
-			"newSpendingPassword"=>$confirm_password
+			"currentPassword"=>$current_password,
+			"newPassword"=>$password,
+			"confirmNewPassword"=>$confirm_password
+			);
+			$context = stream_context_create(array(
+				'http' => array(
+					'method' => 'POST',
+					'header' => "Content-Type: application/json\r\n",
+					'content' => json_encode($postData)
+					)
+				));
+			$response = file_get_contents($url_api.'user/updateCurrentPassword', false, $context);
+			return $response;
+	}
+
+	public function usertransPasswordReset($email,$currentpass,$password,$confirm_password)
+	{
+		$url_api=URL_API;
+		$postData = array(
+			"userMailId"=> $email,
+			"currentSpendingPassword"=>$currentpass,
+			"newSpendingPassword"=>$password,
+			"confirmNewPassword"=>$confirm_password
 			);
 			$context = stream_context_create(array(
 				'http' => array(
@@ -374,7 +395,7 @@ class Controls
 		$currency1=$curre['0'];
 		$currency2=$curre['1'];
 		$url_api=URL_API;
-      	
+
          $response = file_get_contents($url_api.'trademarket'.strtolower($currency2).strtolower($currency1).'/getBids'.$currency1.'Success');
          return $response;
 	}
@@ -385,7 +406,7 @@ class Controls
 		$currency1=$curre['0'];
 		$currency2=$curre['1'];
 		$url_api=URL_API;
-      
+
          $response = file_get_contents($url_api.'trademarket'.strtolower($currency2).strtolower($currency1).'/getAsks'.$currency1.'Success');
          return $response;
 	}

@@ -122,7 +122,7 @@ include 'include/config.php';?>
                 </div>
             </div>
             <div class="col-md-9 col-xs-12" id="parentSection">
-                <div class="manage-frame active loaded" id="sectionBasicVerification" hidden="" style="display: block; border:1px solid #ddd; padding:5% 2% 5% 2%; min-height:440px; max-height:auto;">
+                <div class="manage-frame active loaded" id="sectionBasicVerification" hidden="" style="display: block; border:1px solid #ddd; padding:5% 2% 5% 2%; min-height:500px; max-height:auto;">
                     <div class="div-info box">
                       <div class="login-wrapper">
                           <div class="box">
@@ -131,6 +131,9 @@ include 'include/config.php';?>
                                   <h6>Reset Transaction Password</h6>
                                   <input class="form-control" id="EmailAddress" name="EmailAddress" placeholder="Email Address" type="text" />
                                   <span class="field-validation-valid"></span>
+
+                                  <input  class="form-control" id="currentsendingPassword" name="currentsendingPassword" placeholder="Current Transaction Password" type="password" />
+                                  <span class="field-validation-valid" for="currentsendingPassword"></span>
 
                                   <input  class="form-control" id="sendingPassword" name="sendingPassword" placeholder="New Transaction Password" type="password" />
                                   <span class="field-validation-valid" for="Password"></span>

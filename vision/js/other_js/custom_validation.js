@@ -151,7 +151,7 @@ $(document).ready(function(){
       Password:
       {
         required:true
-        
+
       }
     },
     messages:{
@@ -162,7 +162,7 @@ $(document).ready(function(){
     Password:
     {
       required:"The Password field is required."
-      
+
     }
     }
     ,
@@ -333,6 +333,10 @@ $(document).ready(function(){
         required:true,
         email:true
       },
+      Current_Password:{
+        required:true,
+        minlength:5
+      },
       Password:{
         required:true,
         minlength:5
@@ -348,6 +352,10 @@ $(document).ready(function(){
         required:"EmailAddress is required",
         email:"EmailAddress is invalid"
       },
+      Current_Password:{
+        required:"Current Password is required.",
+        minlength:"The Current Password will 5 character in length"
+      },
       Password:{
         required:"Password is required.",
         minlength:"The Password will 5 character in length"
@@ -359,11 +367,13 @@ $(document).ready(function(){
     },
     submitHandler: function(form) {
       var email=$("#EmailAddress").val();
+      var current_password=$("#Current_Password").val();
       var password=$("#Password").val();
       var confirm_password=$("#Confirm_Password").val();
       $.post("ajax/ajax.php",{
-        q:"final_reset",
+        q:"final_changepass",
         emailId:email,
+        cpass:current_password,
         pass:password,
         new_pass:confirm_password
         },
@@ -386,6 +396,10 @@ $(document).ready(function(){
         required:true,
         email:true
       },
+      currentsendingPassword:{
+        required:true,
+        minlength:5
+      },
       sendingPassword:{
         required:true,
         minlength:5
@@ -401,6 +415,10 @@ $(document).ready(function(){
         required:"EmailAddress is required",
         email:"EmailAddress is invalid"
       },
+      currentsendingPassword:{
+        required:"Current Transaction Password is required.",
+        minlength:"The Current Transaction Password will 5 character in length"
+      },
       sendingPassword:{
         required:"Transaction Password is required.",
         minlength:"The Transaction Password will 5 character in length"
@@ -412,11 +430,13 @@ $(document).ready(function(){
     },
     submitHandler: function(form) {
       var email=$("#EmailAddress").val();
+      var current_password=$("#currentsendingPassword").val();
       var password=$("#sendingPassword").val();
       var confirm_password=$("#sending_Confirm_Password").val();
       $.post("ajax/ajax.php",{
         q:"reset_trans",
         emailId:email,
+        cpass:current_password,
         pass:password,
         new_pass:confirm_password
         },
