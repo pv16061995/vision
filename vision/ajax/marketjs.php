@@ -92,17 +92,21 @@ $('#alertmsg1').empty();
 
 if (result.statusCode!=200)
 {
-     $('#alertmsg1').append('<div class="alert alert-danger"><strong> &nbsp;'+result.message+'</strong>  </div>');
+     toastr["error"](result.message);
 
+}
+else
+{
+  toastr["success"](result.message);
 }
 }
 });
 <?php }else{?>
 
-$('#alertmsg1').html('<div class="alert alert-danger"><strong>Please Login First !!!</strong>  </div>');
+toastr["error"]("Please Login First !!", "Error");
 <?php }?>
 }else{
-$('#alertmsg1').html('<div class="alert alert-danger"><strong>Please filled price and amount first !!!</strong>  </div>');
+toastr["error"]("Please filled price and amount first !!!", "Error");
 }
 }
 
@@ -145,28 +149,33 @@ data: JSON.stringify(json_ask),
 success: function(result){
 
 
-$('#alertmsg').empty();
-
 if (result.statusCode!=200)
   {
-     $('#alertmsg').append('<div class="alert alert-danger"><strong> &nbsp;'+result.message+'</strong>  </div>');
+     
+     toastr["error"](result.message);
 
+}
+else
+{
+  toastr["success"](result.message);
 }
 }
 });
 <?php }else{?>
 
-$('#alertmsg').html('<div class="alert alert-danger"><strong>Please Login First !!!</strong>  </div>');
+toastr["error"]("Please Login First !!", "Error");
+
 <?php }?>
 }else{
-$('#alertmsg').html('<div class="alert alert-danger"><strong>Please filled price and amount first !!!</strong>  </div>');
+toastr["error"]("Please filled price and amount first !!!", "Error");
 }
 }
 var sub_curr='<?php echo substr($currency1,0,3);?>';
 var main_curr='<?php echo  strtolower($currency2);?>';
 function del(bidId,bidownerId) {
 
-    if (confirm("Do You Want To Delete!")) {
+    alertify.confirm('Do you want to Delete Data',function(){
+
       $.ajax({
         type: "POST",
          url: url_api + "trademarket"+main_curr+sub_curr.toLowerCase()+"/removeBid"+sub_curr+"Market",
@@ -175,14 +184,14 @@ function del(bidId,bidownerId) {
           "bidownerId": bidownerId
         },
         success: function(result){
-          alert('Data Delete Successfully');
+          toastr["success"]("Data delete Successfully", "Success");
 
         }
       });
-    }
+    });
   }
   function del_ask(askId,askownerId) {
-    if (confirm("Do You Want To Delete!")) {
+    alertify.confirm('Do you want to Delete Data',function(){
       $.ajax({
         type: "POST",
         url: url_api + "trademarket"+main_curr+sub_curr.toLowerCase()+"/removeAsk"+sub_curr+"Market",
@@ -192,11 +201,12 @@ function del(bidId,bidownerId) {
 
         },
         success: function(result){
-          alert('Data Delete Successfully');
+          toastr["success"]("Data delete Successfully", "Success");
 
+      
         }
       });
-    }
+    });
   }
 
 

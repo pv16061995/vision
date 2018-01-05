@@ -35,8 +35,15 @@ if(isset($_GET['curr']))
     <link href="css/other_css/market.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet noreferrer' type='text/css' />
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+   <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js"></script>
+    <!-- include the style -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/css/alertify.min.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/css/themes/default.min.css"/>
 
-
+    
 </head>
 
 <body id="main-body">
@@ -45,33 +52,6 @@ if(isset($_GET['curr']))
    <?php include 'include/allheader.php';?>
     <!-- end header -->
 
-   <!--  <div id="media-width-detection-element"></div> -->
-    <!-- <div id="layout-navigation" class="col-sm-12 menu-wrapper">
-        <div id="dash_menu_btc" class="collapse menu-content" style="z-index:300">
-
-            <table  class="menu-table">
-                <tr >
-                    <td >
-                        <div>
-                        <?php
-                        $i=1;
-                         foreach($result as $cat) {
-                            foreach($cat['subcat'] as $subcatgory)
-                              { ?>
-                            <a class="col-sm-4" href='market.php?curr=<?php echo base64_encode($subcatgory);?>'><strong><?php echo $subcatgory; ?></strong></a>
-                            <div class="col-sm-2 "> 0.00000 </div>
-                            <?php
-                            }$i++;
-                         }
-                        ?>
-
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-
-    </div> -->
 
 
     <div id="body-container">
@@ -481,6 +461,61 @@ if(isset($_GET['curr']))
 
     setInterval(function(){ $('.alert').hide(); }, 5000);
     </script>
+    <script>
+    alertify.defaults = {
+        // dialogs defaults
+        autoReset:true,
+        basic:false,
+        closable:true,
+        closableByDimmer:true,
+        frameless:false,
+        maintainFocus:true, // <== global default not per instance, applies to all dialogs
+        maximizable:true,
+        modal:true,
+        movable:true,
+        moveBounded:false,
+        overflow:true,
+        padding: true,
+        pinnable:true,
+        pinned:true,
+        preventBodyShift:false, // <== global default not per instance, applies to all dialogs
+        resizable:true,
+        startMaximized:false,
+        transition:'pulse',
+
+        // notifier defaults
+        notifier:{
+            // auto-dismiss wait time (in seconds)  
+            delay:5,
+            // default position
+            position:'bottom-right',
+            // adds a close button to notifier messages
+            closeButton: false
+        },
+
+        // language resources 
+        glossary:{
+            // dialogs default title
+            title:'Confirm',
+            // ok button text
+            ok: 'OK',
+            // cancel button text
+            cancel: 'Cancel'            
+        },
+
+        // theme settings
+        theme:{
+            // class name attached to prompt dialog input textbox.
+            input:'ajs-input',
+            // class name attached to ok button
+            ok:'ajs-ok',
+            // class name attached to cancel button 
+            cancel:'ajs-cancel'
+        }
+    };
+
+    </script>
+   
 
 </body>
 </html>

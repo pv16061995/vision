@@ -43,10 +43,16 @@ function getwithdraw()
 			q:"getwithdraw"
 			},
 			function(data){
-				alert(data);
-			$('#getwithdraw').html(data);
-			
-			
+				var str=data.split("^");
+				if(str[0]==200){
+					toastr["success"](str[1],"success");
+
+				}
+				else if(str[0]!=200)
+				{
+					toastr["error"](str[1],"error");
+
+				}
 			}
 		);
 }

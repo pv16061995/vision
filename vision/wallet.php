@@ -19,6 +19,9 @@ include 'include/config.php';
     <script src="css/other_css/modernizr.css"></script>
 
     <link href="css/other_css/layout.css" rel="stylesheet"/>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
   
     
     <style type="text/css">

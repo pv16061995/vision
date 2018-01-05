@@ -3,6 +3,8 @@ if(isset($_SESSION['useremail']))
 {
     header("location:wallet.php");
 }
+
+
 ?>
 <!DOCTYPE html>
 <html>

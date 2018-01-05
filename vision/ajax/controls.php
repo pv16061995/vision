@@ -32,6 +32,7 @@ class Controls
 	    'method' => 'POST',
 	    'header' => "Content-Type: application/json\r\n",
 	    'content' => json_encode($postData)
+
 	    )
 	  ));
 
@@ -122,6 +123,7 @@ class Controls
 		if(isset($curr))
 		{
 			  $currencyname=$curr;
+			  $response="";
 			  switch ($currencyname) {
 			  	case 'BTC':
 
@@ -259,12 +261,15 @@ class Controls
 		return $response;
 	}
 
-	public function userLogin($email,$password)
+	public function userLogin($email,$password,$localIP)
+
 	{
+
 		$url_api=URL_API;
 		$postData = array(
 			"email"=> $email,
-			"password"=>$password
+			"password"=>$password,
+			"ip"=>$localIP
 			);
 			$context = stream_context_create(array(
 				'http' => array(

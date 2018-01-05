@@ -14,6 +14,7 @@ include 'apis/common.php';
 	<link rel="stylesheet" href="css/responsive.css">
 	<link rel="stylesheet" href="fonts/flaticon.css" />
 	<link rel="icon" type="image/png" href="images/favicon/favicon.png">
+	
 </head>
 
 <body>

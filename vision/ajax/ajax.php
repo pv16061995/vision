@@ -127,7 +127,7 @@ function getwithdraw()
   $responseData=json_decode($data,true);
 
 
-  $detail= $responseData['message'];
+  $detail= $responseData['statusCode']."^".$responseData['message'];
 
 
   echo $detail;
@@ -238,8 +238,10 @@ function userLogin()
 {
   $email=trim($_POST['email']);
   $pass=trim($_POST['pass']);
+  $localIP = getHostByName(getHostName());
+  echo $localIP;
   $obj=NEW Controls();
-  $data=$obj->userLogin($email,$pass);
+  $data=$obj->userLogin($email,$pass,$localIP);
   $responseData=json_decode($data,true);
   $_SESSION['useremail']=$responseData['user']['email'];
   $_SESSION["user_id"] = $responseData['user']['id'];
@@ -413,6 +415,7 @@ function successmarket()
 
     if(($responseDatabid['statusCode']!=401) || ($responseDataask['statusCode']!=401))
     {
+
     $bid=$responseDatabid['bids'.$currency1];
     $ask=$responseDataask['asks'.$currency1];
 
@@ -448,6 +451,7 @@ function successmarket()
     }
    }
    }
+
    echo $detail;
 
 }
