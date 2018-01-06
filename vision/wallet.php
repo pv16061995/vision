@@ -22,7 +22,8 @@ include 'include/config.php';
     <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
-  
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
     
     <style type="text/css">
         #balanceTable_filter,#withdrawdetailtable_filter,#depositdetailtable_filter{
@@ -157,6 +158,9 @@ include 'include/config.php';
     <script src="ajax/ajax.js"></script>
     <script type="text/javascript">
         $( document ).ready(function() {
+
+            $("form").attr('autocomplete', 'off');
+    
             accountbalance();
             getalltransactionwithdraw();
             getalltransactiondeposit();
@@ -237,9 +241,9 @@ include 'include/config.php';
                 <div class="col-sm-9">
                     <div class="input-group">
                         <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button" data-bind="click: wallet.withdrawMax" data-toggle="tooltip" data-placement="top" title="Withdraw All"><i class="fa fa-angle-double-up"></i></button>
+                            <button class="btn btn-primary" type="button" data-toggle="tooltip" data-placement="top" title="Withdraw All"><i class="fa fa-angle-double-up"></i></button>
                         </span>
-                        <input  class="form-control text-right" id="amount" name="amount" required="" >
+                        <input  class="form-control text-right" id="amount" name="amount" required="" onkeypress="return isNumberKey(event)">
                         <span class="input-group-addon" id="withdraw_currency1"></span>
                         <input type="hidden" name="withdraw_currencyname" id="withdraw_currencyname" >
                     </div>
@@ -253,16 +257,17 @@ include 'include/config.php';
                         <div class="input-group-btn">
                             <button class="btn btn-default" style="padding-left:9px;padding-right:9px" type="button" disabled=""><i class="fa fa-cloud-upload"></i></button>
                         </div>
-                        <input  class="form-control text-right" id="spendingpass" name="spendingpass" type="Password" required="" >
+                        <input  class="form-control text-right" autofill="off" id="spendingpass" name="spendingpass" type="Password" required="" >
                         <span class="input-group-addon" ><i class="fa fa-cloud-upload"></i></span>
                     </div>
                 </div>
             </div>
            
             <div class="col-sm-12">
-                <button  type="submit" class="btn btn-primary center-block" onclick="getwithdraw();"><i class="fa fa-cloud-upload"></i>&nbsp; Withdrawal</button>
+                <button  type="button" class="btn btn-primary center-block" onclick="getwithdraw();"><i class="fa fa-cloud-upload"></i>&nbsp; Withdrawal</button>
             </div>
         </form>
+
     </div>
 </div>
 

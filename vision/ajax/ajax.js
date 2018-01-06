@@ -14,6 +14,13 @@ function accountbalance()
 		);
 
 }
+
+function isNumberKey(evt){
+	var charCode = (evt.which) ? evt.which : event.keyCode
+	if (charCode > 46 && (charCode < 48 || charCode > 57))
+	return false;
+	return true;
+	}
 function getqrcode(currency)
 {
 	 $.post("ajax/ajax.php",{
@@ -42,8 +49,12 @@ function getwithdraw()
 	 		spendingpass:spendingpass,
 			q:"getwithdraw"
 			},
-			function(data){
-				alert(data);
+			function(dat){
+				data=dat.split('^');
+				if (data[1]!=200)
+				{toastr["error"](data[2]);}
+				else
+				{toastr["success"](data[2]);}
 			}
 		);
 }

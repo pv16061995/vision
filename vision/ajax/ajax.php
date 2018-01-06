@@ -126,9 +126,9 @@ function getwithdraw()
   $data=$obj->getwithdraw($cun,$email,$amount,$spendingpass,$address);
   $responseData=json_decode($data,true);
 
-  $detail= $responseData['message'];
 
-  echo $detail;
+
+  echo 'detail^'.$responseData['statusCode'].'^'.$responseData['message'].'^detail';
 }
 
 
