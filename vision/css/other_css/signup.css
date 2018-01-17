@@ -1,0 +1,34 @@
+.error
+{
+  color: #f00;
+}
+
+.div-info
+{
+  text-align: center;
+}
+.login-wrapper-inner {
+    position: absolute;
+    top: 52px;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.login-wrapper_kyc .box_kyc {
+    margin: 0 auto;
+    padding: 15px 0 15px;
+    float: none;
+    width: 760px;
+    box-shadow: 0 0 6px 2px rgba(0,0,0,.1);
+    border-radius: 5px;
+    background: rgba(255,255,255,.65);
+        margin-left: 55px;
+}
+.login-wrapper_kyc {
+    position: absolute;
+    top: 55px;
+    left: 0;
+    right: 0;
+    text-align: center;
+}

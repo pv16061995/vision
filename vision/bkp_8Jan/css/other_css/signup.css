@@ -1,0 +1,16 @@
+.error
+{
+  color: #f00;
+}
+
+.div-info
+{
+  text-align: center;
+}
+.login-wrapper-inner {
+    position: absolute;
+    top: 52px;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
